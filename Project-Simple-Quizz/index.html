@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Kviz</h1>
+        <h2>Prvo pitanje</h2>
+        <label for="pitanje1">Koji je glavni grad Australije?</label>
+        <span>A</span><button type="button" value="Canberra"  id="pitanje_jedan_a" class="prvo" onclick="userClick(this)">Canberra</button>
+        <span>B</span><button type="button" value="Sidney"  id="pitanje_jedan_b"  class="prvo" onclick="userClick(this)">Sidney</button>
+        <span>C</span><button type="button" value="Perth"  id="pitanje_jedan_c"  class="prvo" onclick="userClick(this)">Perth</button>
+        <span>D</span><button type="buttom" value="Brisbane"  id="pitanje_jedan_d"  class="prvo" onclick="userClick(this)">Brisbane</button>
+        <h2>Drugo pitanje</h2>
+        <label for="pitanje1">Koji je glavni grad SAD-a?</label>
+        <span>A</span><button type="button" value="Los Angeles"   id="pitanje_dva_a"  class="drugo" onclick="userClick(this)">Los Angeles</button>
+        <span>B</span><button type="button" value="New York"   id="pitanje_dva_b"  class="drugo" onclick="userClick(this)">New York</button>
+        <span>C</span><button type="button" value="Austin"   id="pitanje_dva_c"  class="drugo" onclick="userClick(this)">Austin</button>
+        <span>D</span><button type="buttom" value="Washington D.C."   id="pitanje_dva_d"  class="drugo" onclick="userClick(this)">Washington D.C.</button>
+        <h2>Trece pitanje</h2>
+        <label for="pitanje1">Koji je glavni grad Spanjolske?</label>
+        <span>A</span><button type="button" value="Barcelona"   id="pitanje_tri_a" class="trece" onclick="userClick(this)">Barcelona</button>
+        <span>B</span><button type="button" value="Valencia"   id="pitanje_tri_b" class="trece" onclick="userClick(this)">Valencia</button>
+        <span>C</span><button type="button" value="Madrid"   id="pitanje_tri_c" class="trece" onclick="userClick(this)">Madrid</button>
+        <span>D</span><button type="buttom" value="Algeciras"   id="pitanje_tri_d" class="trece" onclick="userClick(this)">Algeciras</button>
+        <h2>Cetvrto pitanje</h2>
+        <label for="pitanje1">Koji je glavni grad Njemacke?</label>
+        <span>A</span><button type="button" value="Berlin"   id="pitanje_cetri_a" class="cetvrto" onclick="userClick(this)">Berlin</button>
+        <span>B</span><button type="button" value="Munchen"   id="pitanje_cetri_b" class="cetvrto" onclick="userClick(this)">Munchen</button>
+        <span>C</span><button type="button" value="Frankfurt"   id="pitanje_cetri_c" class="cetvrto" onclick="userClick(this)">Frankfurt</button>
+        <span>D</span><button type="buttom" value="Hamburg"   id="pitanje_cetri_d" class="cetvrto" onclick="userClick(this)">Hamburg</button>
+        <h2>Peto pitanje</h2>
+        <label for="pitanje1">Koji je glavni grad Italije?</label>
+        <span>A</span><button type="button" value="Milano"   id="pitanje_pet_a" class="peto" onclick="userClick(this)">Milano</button>
+        <span>B</span><button type="button" value="Genova"   id="pitanje_pet_b" class="peto" onclick="userClick(this)">Genova</button>
+        <span>C</span><button type="button" value="Rim"   id="pitanje_pet_c" class="peto" onclick="userClick(this)">Rim</button>
+        <span>D</span><button type="buttom" value="Napulj"   id="pitanje_pet_d" class="peto" onclick="userClick(this)">Napulj</button>
+        <button type="submit" onclick="provjera()">Potvrdi odgovore</button>
+        <button type="button" onclick="reload()">Reset</button>
+
+        <div id="konzola"></div>
+</body>
+
+<script>
+    let arrUser = [];
+
+    let arrCorrect = ['pitanje_jedan_a', 'pitanje_dva_d', 'pitanje_tri_c', 'pitanje_cetri_a', 'pitanje_pet_c'];
+
+    let processedButtons = new Set(); //skupljamo id vec dohvacenog botuna
+
+    function userClick(pass) {
+
+        disableButton(pass.className); //ide u funkciju na dnu koja radi dissable za sve botune od kliknute klase
+        pass.style.backgroundColor = 'red' //zabiljezi odgovore korisnika u crveno
+
+        if (processedButtons.has(pass.className)) { //pobrine se da user ne moze promijeniti odluku nakon odgovora (kad imam disable  mozda nije potrebno ali dobro je znati)
+            console.log("Button already processed:", pass.className);
+            return;
+        }
+
+        processedButtons.add(pass.className); //sprema prvi kliknuti botun od iste klase
+
+        let userObj = { //sprema prvi kliknuti botun od klase u ovaj objekt
+            buttonId: pass.id,
+            buttonValue: pass.value,
+        };
+        arrUser.push(userObj.buttonId); //u array spremamo sve id-eve od kliknutih odgovora
+
+        console.log(arrUser);
+    }
+
+
+    function provjera(){
+        if (arrUser.length !== arrCorrect.length) { //provjereva dali je sve iste velicine, ako nije usera se pita da odgovori do kraja sve
+        document.getElementById('konzola').innerHTML = 'Molimo odgovorite na sva pitanja!';
+        } else{
+            let equalCount = 0 
+            for (let i = 0; i < arrUser.length; i++) { //rasclanimo oba arraya i user input i tocne odgovore
+
+                const userButtonId = arrUser[i]; //spremamo id-eve od usera koje je izabrao tako da kasnije kad usporedimo sa tocnim mozemo obojati u zeleno one koji su isti
+                const userButton = document.getElementById(userButtonId);
+
+                if (arrUser[i] === arrCorrect[i]) { //provjerava sve vrijednosti unutar dva arraya dali ima istih  odnosno tocnih
+                    equalCount++ //ako ima broji koliko je tocnih
+                    userButton.style.backgroundColor = 'green'; //mjenja svaki tocni odgovor u zeleno
+                }
+            }
+
+            document.getElementById('konzola').innerHTML = `Dobili ste ${equalCount}/5 tocnih odgovora!`;
+        }
+
+        
+    }
+
+    function disableButton(className) {
+
+            const buttons = document.querySelectorAll(`.${className}`); //disable za sve botune iste klase koju je user izabrao
+            buttons.forEach(button => {
+                button.disabled = true;
+            });
+        }
+
+    function reload(){
+        location.reload();
+    }
+    
+</script>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+        #calc {
+            width: 300px;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        label {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: calc(100% - 16px);
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>  
+    <form id="calc">
+        <label for="first">Please enter first number</label>
+        <input type="text" id="first" name="first" placeholder="Enter first number" >
+        <label for="second">Please enter second number</label>
+        <input type="text" id="second" name="second" placeholder="Enter second number">
+        <button type="button" onclick="operation(minus)">-</button>
+        <button type="button" onclick="operation(plus)">+</button>
+        <button type="button" onclick="operation(divide)">/</button>
+        <button type="button" onclick="operation(multiply)">*</button>
+        <button type="reset"  onclick="resetCalc()">Reset</button>
+        <p id="result"></p>
+    </form>
+
+    <script>
+
+            function clear(){
+                document.getElementById("first").value = "";
+                document.getElementById("second").value = "";
+            }
+
+            function operation(operationFunction){
+                var first = document.getElementById("first").value;
+                var second = document.getElementById("second").value;
+                var first_num = Number(first);
+                var second_num = Number(second);                      
+                console.log(first_num);
+
+            if( Number.isNaN(first_num) || Number.isNaN(second_num)){ 
+
+                document.getElementById("result").innerHTML = "Please enter a number!"; 
+
+                clear();
+            }else{
+                let calc = operationFunction(first_num, second_num);
+
+                document.getElementById("result").innerHTML = `Result is: ${calc}`;
+
+                clear();
+            }
+
+            }
+
+            function minus(a,b){
+                return a - b;
+            }
+
+            function plus(a,b){
+                return a + b;
+            }
+
+            function divide(a,b){
+
+                if(b === 0){
+                    var explanation = document.getElementById("result").innerHTML = "Can not divide by zero!";
+                    return explanation;
+                    
+                }else{
+                    return a / b;
+                }
+            }
+
+            function multiply(a,b){
+                return a * b;
+            }
+
+            function resetCalc(){
+                location.reload();
+            }
+
+    </script>
+</body>
+</html>

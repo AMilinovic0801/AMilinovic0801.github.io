@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            align-items: flex-start; 
+            background: linear-gradient(to bottom right, #add8e6, #d4aaff);
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100vh;
+            margin: 0; 
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 30%;
+            text-align: center;
+            margin-top: 10vh; 
+        }
+
+        .main_button {
+            margin-top: 3%;
+            width: 20%;
+            margin-left: 40%;
+        }
+        .remove-button {
+            background-color: red;
+            color: white;
+            margin-top: 3%;
+            width: 5%;
+            margin-left: 40%;
+            padding: 2px; /* Adjust padding to make the button smaller */
+            font-size: 12px;
+            margin-bottom: 2%;
+        }
+        .done-button{
+            background-color: green;
+            color: white;
+            margin-top: 4%;
+            margin-left: 1%;
+            margin-bottom: 2%;             
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li{
+            margin-left: 5%;
+            border: solid 2px;
+            border-color: lightslategray;
+            margin-bottom: 2%;
+            text-wrap: wrap;
+        }
+
+        li::before {
+            content: url('caret-right-fill.svg'); 
+            color: blue; 
+            margin-right: 10%; 
+        }
+        .crossed-out {
+            text-decoration: line-through;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Vasa lista zadataka</h2>  
+        <label for="zadatak">Molimo unesite Vas zadatak:</label>
+        <input type="text" id="zadatak" name="zadatak">
+        <button type="button" onclick="list()" class="main_button">Kreiraj zadatak</button>
+        <button type="button" onclick="reset()" class="main_button">Resetiraj listu</button>
+        <ul id="userList"></ul>
+    </div>
+
+    <script>
+        function list(){           
+            let userInput = document.getElementById('zadatak').value
+            if(userInput != ''){
+                const container = document.getElementById('userList');
+                const newLI = document.createElement('li');
+                let inputField = document.getElementById('zadatak');
+                newLI.textContent = userInput;
+                const removeButton = document.createElement('button');
+                const doneButton = document.createElement('button')
+                removeButton.textContent = 'X';
+                doneButton.textContent = '✔';
+                removeButton.onclick = function() {
+                    removeItem(newLI);
+                };
+                doneButton.onclick = function(){
+                    crossOut(newLI);
+                }
+
+
+                removeButton.classList.add('remove-button');
+                doneButton.classList.add('done-button');
+
+                newLI.appendChild(removeButton);
+                newLI.appendChild(doneButton);
+
+                container.appendChild(newLI);
+                inputField.value = '';
+            } else {
+                alert('Molimo unesite zadatak!');
+            }
+        }
+
+        
+        function removeItem(item) {
+            item.remove();
+        }
+
+        function reset(){
+        location.reload();
+        }
+        function crossOut(item) {
+            item.classList.toggle('crossed-out');
+        }
+    </script>
+</body>
+</html>
