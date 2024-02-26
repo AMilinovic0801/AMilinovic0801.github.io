@@ -5,7 +5,7 @@ let partName = document.getElementById('part_name')
 let partPrice = document.getElementById('part_price')
 let partDescription = document.getElementById('part_description')
 let partShippingTime = document.getElementById('part_shipping_time')
-let partJson = '/web-shop/database/parts.json'
+let partJson = '../web-shop/database/parts.json'
 let currentItemIndex = localStorage.getItem('selectedIndex'); //dobavljamo index iz local storeagea, tu smo ga 'poslali' iz parts_index_save.js
 let currentPicture = localStorage.getItem('selectedPictureSrc'); //ista stvar i za link slike
 

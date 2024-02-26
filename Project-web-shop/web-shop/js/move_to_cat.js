@@ -1,4 +1,4 @@
-let partForCart = '/web-shop/database/parts.json';
+let partForCart = '../web-shop/database/parts.json';
 let currentItemIndexForCart = localStorage.getItem('selectedIndex');
 
 async function moveToCart() {

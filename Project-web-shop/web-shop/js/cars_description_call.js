@@ -8,7 +8,7 @@ let motor = document.getElementById('motor');
 let trans = document.getElementById('trans');
 let imgID = ['car-picture1', 'car-picture2', 'car-picture3', 'car-picture4', 'car-picture5', 'car-picture6'];
 let galleryID = ['car-gallery1', 'car-gallery2', 'car-gallery3', 'car-gallery4', 'car-gallery5', 'car-gallery6'];
-let CarsJson = '/web-shop/database/cars.json'
+let CarsJson = '../web-shop/database/cars.json'
 let currentItemIndex = localStorage.getItem('selectedIndexCars');
 
 
